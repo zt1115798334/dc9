@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql-tool:
+    container_name: mysql-tool
+    image: mysql:8.0.23
+    ports:
+      - '3307:3306'
+    env_file:
+      - mysql-tool/env/mysql.env
+    volumes:
+      - ./mysql-tool/mysql:/var/lib/mysql
+      - ./mysql-tool/conf:/etc/mysql/conf.d
+      - ./mysql-tool/init/:/docker-entrypoint-initdb.d/
+      - /etc/localtime:/etc/localtime:rw
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+    restart: always
